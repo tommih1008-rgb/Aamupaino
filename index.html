@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#143e60">
+  <meta name="description" content="Oma aamupaino, mittaushistoria ja 7 sekä 14 päivän painotrendit.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Aamupaino">
+  <title>Aamupaino</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./core.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+<main>
+  <header><a class="brand" href="./"><span aria-hidden="true">a.</span> Aamupaino</a><span class="local">Vain tällä laitteella</span></header>
+  <section class="entry panel" aria-labelledby="entry-title">
+    <div><p class="eyebrow" id="today"></p><h1 id="entry-title">Hetki aamulle.</h1><p class="muted">Kirjaa painosi. Seuraa muutosta ajan kanssa.</p></div>
+    <form id="weight-form">
+      <label for="weight">Tämän päivän paino</label>
+      <div class="input-row"><div class="weight-wrap"><input id="weight" name="weight" type="text" inputmode="decimal" autocomplete="off" placeholder="esim. 75,4" maxlength="8" required aria-describedby="entry-hint"><span>kg</span></div><button id="save" type="submit">Tallenna</button></div>
+      <p id="entry-hint" class="hint">Yksi mittaus päivässä. Uusi tallennus korvaa tämän päivän arvon.</p>
+    </form>
+    <p id="status" role="status" aria-live="polite"></p>
+  </section>
+  <section class="trends" aria-label="Painon trendit">
+    <article class="panel trend"><p class="eyebrow">Viimeiset 7 päivää</p><div class="trend-value"><strong id="trend-7">—</strong><span>kg/vko</span></div><p id="count-7" class="muted"></p></article>
+    <article class="panel trend"><p class="eyebrow">Viimeiset 14 päivää</p><div class="trend-value"><strong id="trend-14">—</strong><span>kg/vko</span></div><p id="count-14" class="muted"></p></article>
+  </section>
+  <section class="panel chart-panel" aria-labelledby="chart-title"><div class="section-heading"><h2 id="chart-title">Painokäyrä</h2><span class="muted">Viimeiset 30 päivää</span></div><div id="chart"></div><p class="hint">Pisteet ovat mittauksia. Viiva yhdistää ne; puuttuville päiville ei lisätä arvoja.</p></section>
+  <section class="panel" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">Mittaushistoria</h2><span id="history-count" class="muted"></span></div><p id="empty-history" class="empty">Ensimmäinen merkintä odottaa. Lisää tämän päivän paino yläpuolelta.</p><ul id="history"></ul></section>
+  <details class="panel"><summary>Miten trendi lasketaan?</summary><p>Trendi on mittauksiin sovitetun suoran kulmakerroin (OLS) kerrottuna seitsemällä. Miinus tarkoittaa laskevaa ja plus nousevaa painotrendiä.</p><p>7 päivän jakso sisältää tämän päivän ja kuusi edellistä päivää. 14 päivän jakso sisältää tämän päivän ja kolmetoista edellistä päivää. Päivämäärien todelliset välit huomioidaan, myös mittausten puuttuessa. Laskenta tarvitsee vähintään kaksi eri päivien mittausta. Harvat mittaukset ja päiväkohtainen vaihtelu voivat heiluttaa tulosta.</p></details>
+  <details class="panel"><summary>Asennus ja tietojen säilyminen</summary><p>iPhone: avaa julkaistu sivu Safarissa ja valitse Jaa → Lisää Koti-valikkoon. Jos näkyvissä on Avaa verkkosovelluksena, ota se käyttöön. Androidissa ja Windowsissa käytä selaimen Asenna sovellus -toimintoa, jos se on saatavilla.</p><p id="offline-status" role="status">Valmistellaan offline-käyttöä…</p><p>Painot tallentuvat tämän selaimen paikalliseen tallennustilaan. Niitä ei lähetetä palvelimelle eikä synkronoida laitteiden välillä. Selaintietojen tyhjennys tai yksityisen selausistunnon päättyminen voi poistaa ne. Käytä aina samaa osoitetta ja samaa selainta tai kotinäytön sovellusta.</p></details>
+  <footer>Oma tahti. Päivä kerrallaan.</footer>
+</main>
+</body>
+</html>
